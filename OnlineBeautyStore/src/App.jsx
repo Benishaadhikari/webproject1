@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
@@ -9,7 +10,7 @@ import LoadingScreen from './components/LoadingScreen'
 import ErrorPopup from './components/ErrorPopup'
 
 function App() {
-  const [currentView, setCurrentView] = useState('store') // 'store', 'login', 'signup', 'dashboard', 'checkout'
+  const [currentView, setCurrentView] = useState('home') // 'home', 'store', 'login', 'signup', 'dashboard', 'checkout'
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [checkoutData, setCheckoutData] = useState({ cart: [], cartTotal: 0 })
@@ -44,6 +45,10 @@ function App() {
     setCurrentView('store')
   }
 
+  const switchToHome = () => {
+    setCurrentView('home')
+  }
+
   const handleLogin = () => {
     // Simulate successful login and set token
     localStorage.setItem('auth_token', 'fake_token_' + Date.now());
@@ -65,7 +70,7 @@ function App() {
   }
 
   const handleGoHome = () => {
-    setCurrentView('store')
+    setCurrentView('home')
     setShowErrorPopup(false)
   }
 
@@ -95,6 +100,8 @@ function App() {
       return null;
     }
     switch (currentView) {
+      case 'home':
+        return <Home onLogin={switchToLogin} onSignup={switchToSignup} onProceedToStore={switchToStore} />
       case 'login':
         return <Login onSwitchToSignup={switchToSignup} onSwitchToStore={switchToStore} onLogin={handleLogin} />
       case 'signup':
@@ -110,7 +117,7 @@ function App() {
         />
       case 'store':
       default:
-        return <Store onLogin={switchToLogin} onSignup={switchToSignup} onError404={handleError404} />
+        return <Store onLogin={switchToLogin} onSignup={switchToSignup} onError404={handleError404} onBackToHome={switchToHome} />
     }
   }
 

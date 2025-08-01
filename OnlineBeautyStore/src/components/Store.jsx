@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Store.css';
 import { productImages } from '../assets/productImages';
 
-const Store = ({ onLogin, onSignup, onError404, onProceedToCheckout }) => {
+const Store = ({ onLogin, onSignup, onError404, onProceedToCheckout, onBackToHome }) => {
   const [cart, setCart] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -246,13 +246,14 @@ const Store = ({ onLogin, onSignup, onError404, onProceedToCheckout }) => {
              </button>
            </div>
           
-                     <div className="header-actions">
-             <button className="btn-secondary" onClick={onLogin}>Login</button>
-             <button className="btn-primary" onClick={onSignup}>Sign Up</button>
-             <button className="cart-btn" onClick={() => document.getElementById('cart-sidebar').classList.add('open')}>
-               🛒 <span className="cart-count">{cartCount}</span>
-             </button>
-           </div>
+                               <div className="header-actions">
+            <button className="btn-secondary" onClick={onBackToHome}>🏠 Home</button>
+            <button className="btn-secondary" onClick={onLogin}>Login</button>
+            <button className="btn-primary" onClick={onSignup}>Sign Up</button>
+            <button className="cart-btn" onClick={() => document.getElementById('cart-sidebar').classList.add('open')}>
+              🛒 <span className="cart-count">{cartCount}</span>
+            </button>
+          </div>
         </div>
       </header>
 
