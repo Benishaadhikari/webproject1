@@ -42,7 +42,7 @@ const users = [
 const products = [
   {
     name: 'BB Cream Foundation',
-    price: 29.99,
+    price: 3999,
     description: 'Lightweight BB cream that provides coverage and skincare benefits',
     image: '/src/assets/image/BB_Cream.jpg',
     brand: 'BeautyBrand',
@@ -62,7 +62,7 @@ const products = [
   },
   {
     name: 'Body Mist Fragrance',
-    price: 24.99,
+    price: 3499,
     description: 'Refreshing body mist with long-lasting fragrance',
     image: '/src/assets/image/Body Mist.jpg',
     brand: 'FragranceCo',
@@ -82,7 +82,7 @@ const products = [
   },
   {
     name: 'Eyeshadow Palette',
-    price: 45.99,
+    price: 6199,
     description: 'Professional eyeshadow palette with 18 highly pigmented shades',
     image: '/src/assets/image/Eyeshadow palette.jpg',
     brand: 'MakeupPro',
@@ -102,7 +102,7 @@ const products = [
   },
   {
     name: 'Gentle Face Wash',
-    price: 19.99,
+    price: 2699,
     description: 'Gentle daily face wash suitable for all skin types',
     image: '/src/assets/image/Facewash.jpg',
     brand: 'SkincarePlus',
@@ -122,7 +122,7 @@ const products = [
   },
   {
     name: 'Floral Perfume',
-    price: 89.99,
+    price: 12199,
     description: 'Luxury floral perfume with notes of rose and jasmine',
     image: '/src/assets/image/Floral Perfume.jpg',
     brand: 'LuxuryScents',
@@ -142,7 +142,7 @@ const products = [
   },
   {
     name: 'Lip Gloss Set',
-    price: 34.99,
+    price: 4699,
     description: 'Set of 6 beautiful lip glosses in various shades',
     image: '/src/assets/image/Lip Gloss Set.jpg',
     brand: 'GlossyLips',
@@ -162,7 +162,7 @@ const products = [
   },
   {
     name: 'Mascara Volume Plus',
-    price: 27.99,
+    price: 3799,
     description: 'Volumizing mascara that adds length and volume to lashes',
     image: '/src/assets/image/Mascara Volume Plus.jpg',
     brand: 'LashPro',
@@ -182,7 +182,7 @@ const products = [
   },
   {
     name: 'Professional Foundation',
-    price: 39.99,
+    price: 5399,
     description: 'Professional foundation with buildable coverage',
     image: '/src/assets/image/Pro Foundation.jpg',
     brand: 'ProMakeup',
@@ -202,7 +202,7 @@ const products = [
   },
   {
     name: 'Rare Beauty Lipstick',
-    price: 22.99,
+    price: 3099,
     description: 'Matte lipstick with liner in beautiful shades',
     image: '/src/assets/image/Rare Beauty Kind Words Matte Lipstick & Liner.jpg',
     brand: 'Rare Beauty',

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Dashboard.css';
 import logoImg from '../assets/image/Floral Perfume.jpg';
 import LipstickImg from '../assets/image/Lip Gloss Set.jpg';
@@ -11,36 +11,45 @@ import RareBeautyImg from '../assets/image/Rare Beauty Kind Words Matte Lipstick
 const Dashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time for dashboard data
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const stats = [
-    { title: 'Total Sales', value: '₹1,24,500', change: '+12%', icon: '💰' },
+    { title: 'Total Sales', value: 'NPR 1,24,500', change: '+12%', icon: '💰' },
     { title: 'Orders', value: '156', change: '+8%', icon: '📦' },
     { title: 'Customers', value: '2,340', change: '+15%', icon: '👥' },
     { title: 'Products', value: '89', change: '+5%', icon: '💄' }
   ];
 
   const recentOrders = [
-    { id: '#1234', customer: 'Sarah Johnson', product: 'Lipstick Set', amount: '₹899', status: 'Delivered' },
-    { id: '#1235', customer: 'Emma Davis', product: 'Foundation', amount: '₹1,499', status: 'Shipped' },
-    { id: '#1236', customer: 'Maria Garcia', product: 'Eyeshadow Palette', amount: '₹1,799', status: 'Processing' },
-    { id: '#1237', customer: 'Lisa Chen', product: 'Skincare Bundle', amount: '₹1,299', status: 'Delivered' }
+    { id: '#1234', customer: 'Sarah Johnson', product: 'Lipstick Set', amount: 'NPR 899', status: 'Delivered' },
+    { id: '#1235', customer: 'Emma Davis', product: 'Foundation', amount: 'NPR 1,499', status: 'Shipped' },
+    { id: '#1236', customer: 'Maria Garcia', product: 'Eyeshadow Palette', amount: 'NPR 1,799', status: 'Processing' },
+    { id: '#1237', customer: 'Lisa Chen', product: 'Skincare Bundle', amount: 'NPR 1,299', status: 'Delivered' }
   ];
 
   const products = [
-    { id: 1, name: 'Matte Lipstick', category: 'Lips', price: '₹899', stock: 45, image: LipstickImg, imageName: 'Lip Gloss Set.jpg' },
-    { id: 2, name: 'Foundation', category: 'Face', price: '₹1,499', stock: 32, image: FoundationImg, imageName: 'Pro Foundation.jpg' },
-    { id: 3, name: 'Eyeshadow Palette', category: 'Eyes', price: '₹1,799', stock: 18, image: EyeshadowImg, imageName: 'Eyeshadow palette.jpg' },
-    { id: 4, name: 'Skincare Set', category: 'Skincare', price: '₹1,299', stock: 25, image: FacewashImg, imageName: 'Facewash.jpg' },
-    { id: 5, name: 'Mascara Volume Plus', category: 'Eyes', price: '₹1,099', stock: 20, image: MascaraImg, imageName: 'Mascara Volume Plus.jpg' },
-    { id: 6, name: 'Rare Beauty Kind Words Matte Lipstick & Liner', category: 'Lips', price: '₹1,599', stock: 15, image: RareBeautyImg, imageName: 'Rare Beauty Kind Words Matte Lipstick & Liner.jpg' },
-    { id: 7, name: 'Floral Perfume', category: 'Fragrance', price: '₹1,299', stock: 10, image: logoImg, imageName: 'Floral Perfume.jpg' }
+    { id: 1, name: 'Matte Lipstick', category: 'Lips', price: 'NPR 899', stock: 45, image: LipstickImg, imageName: 'Lip Gloss Set.jpg' },
+    { id: 2, name: 'Foundation', category: 'Face', price: 'NPR 1,499', stock: 32, image: FoundationImg, imageName: 'Pro Foundation.jpg' },
+    { id: 3, name: 'Eyeshadow Palette', category: 'Eyes', price: 'NPR 1,799', stock: 18, image: EyeshadowImg, imageName: 'Eyeshadow palette.jpg' },
+    { id: 4, name: 'Skincare Set', category: 'Skincare', price: 'NPR 1,299', stock: 25, image: FacewashImg, imageName: 'Facewash.jpg' },
+    { id: 5, name: 'Mascara Volume Plus', category: 'Eyes', price: 'NPR 1,099', stock: 20, image: MascaraImg, imageName: 'Mascara Volume Plus.jpg' },
+    { id: 6, name: 'Rare Beauty Kind Words Matte Lipstick & Liner', category: 'Lips', price: 'NPR 1,599', stock: 15, image: RareBeautyImg, imageName: 'Rare Beauty Kind Words Matte Lipstick & Liner.jpg' },
+    { id: 7, name: 'Floral Perfume', category: 'Fragrance', price: 'NPR 1,299', stock: 10, image: logoImg, imageName: 'Floral Perfume.jpg' }
   ];
 
   const renderOverview = () => (
     <div className="dashboard-content">
       <div className="stats-grid">
         {stats.map((stat, index) => (
-          <div key={index} className="stat-card">
+          <div key={index} className={`stat-card animate-slide-up`} style={{ animationDelay: `${index * 0.1}s` }}>
             <div className="stat-icon">{stat.icon}</div>
             <div className="stat-info">
               <h3>{stat.title}</h3>
@@ -56,7 +65,7 @@ const Dashboard = ({ onLogout }) => {
           <h3>Recent Orders</h3>
           <div className="orders-list">
             {recentOrders.map((order, index) => (
-              <div key={index} className="order-item">
+              <div key={index} className={`order-item animate-fade-in`} style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="order-info">
                   <span className="order-id">{order.id}</span>
                   <span className="customer-name">{order.customer}</span>
@@ -75,7 +84,7 @@ const Dashboard = ({ onLogout }) => {
           <h3>Top Products</h3>
           <div className="products-list">
             {products.slice(0, 4).map((product, index) => (
-              <div key={product.id} className="product-item">
+              <div key={product.id} className={`product-item animate-slide-in`} style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="product-icon">
                   <img src={product.image} alt={product.name} style={{ height: '40px', width: '40px', objectFit: 'cover', borderRadius: '8px', marginRight: '8px' }} />
                 </div>
@@ -182,10 +191,10 @@ const Dashboard = ({ onLogout }) => {
       
       <div className="customers-grid">
         {[
-          { name: 'Sarah Johnson', email: 'sarah@email.com', orders: 12, total: '₹4,500' },
-          { name: 'Emma Davis', email: 'emma@email.com', orders: 8, total: '₹3,200' },
-          { name: 'Maria Garcia', email: 'maria@email.com', orders: 15, total: '₹6,700' },
-          { name: 'Lisa Chen', email: 'lisa@email.com', orders: 6, total: '₹2,800' }
+              { name: 'Sarah Johnson', email: 'sarah@email.com', orders: 12, total: 'NPR 4,500' },
+    { name: 'Emma Davis', email: 'emma@email.com', orders: 8, total: 'NPR 3,200' },
+    { name: 'Maria Garcia', email: 'maria@email.com', orders: 15, total: 'NPR 6,700' },
+    { name: 'Lisa Chen', email: 'lisa@email.com', orders: 6, total: 'NPR 2,800' }
         ].map((customer, index) => (
           <div key={index} className="customer-card">
             <div className="customer-avatar">👤</div>
@@ -222,8 +231,26 @@ const Dashboard = ({ onLogout }) => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="dashboard-loading">
+        <div className="loading-spinner">
+          <div className="spinner-ring"></div>
+          <div className="spinner-ring"></div>
+          <div className="spinner-ring"></div>
+        </div>
+        <h2>Loading Dashboard...</h2>
+        <div className="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="dashboard">
+    <div className="dashboard animate-in">
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">

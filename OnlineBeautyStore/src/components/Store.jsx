@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './Store.css';
 import { productImages } from '../assets/productImages';
 
-const Store = ({ onLogin, onSignup }) => {
+const Store = ({ onLogin, onSignup, onError404, onProceedToCheckout }) => {
   const [cart, setCart] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All Products', icon: '✨' },
@@ -159,16 +161,29 @@ const Store = ({ onLogin, onSignup }) => {
   });
 
   const addToCart = (product) => {
-    const existingItem = cart.find(item => item.id === product.id);
-    if (existingItem) {
-      setCart(cart.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
-    }
+    setIsAddingToCart(true);
+    
+    // Simulate loading time for adding to cart
+    setTimeout(() => {
+      // Simulate occasional network error
+      if (Math.random() < 0.1) { // 10% chance of error
+        onError404("Network error! Please check your connection and try again.");
+        setIsAddingToCart(false);
+        return;
+      }
+      
+      const existingItem = cart.find(item => item.id === product.id);
+      if (existingItem) {
+        setCart(cart.map(item => 
+          item.id === product.id 
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ));
+      } else {
+        setCart([...cart, { ...product, quantity: 1 }]);
+      }
+      setIsAddingToCart(false);
+    }, 500);
   };
 
   const removeFromCart = (productId) => {
@@ -189,6 +204,25 @@ const Store = ({ onLogin, onSignup }) => {
 
   const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+
+  const handleCheckout = () => {
+    setIsCheckingOut(true);
+    // Simulate checkout process
+    setTimeout(() => {
+      // Simulate occasional checkout error
+      if (Math.random() < 0.15) { // 15% chance of error
+        onError404("Checkout failed! Please try again or contact support.");
+        setIsCheckingOut(false);
+        return;
+      }
+      
+      // Navigate to checkout page
+      if (onProceedToCheckout) {
+        onProceedToCheckout(cart, cartTotal);
+      }
+      setIsCheckingOut(false);
+    }, 1500);
+  };
 
   const renderStars = (rating) => {
     const stars = [];
@@ -220,8 +254,22 @@ const Store = ({ onLogin, onSignup }) => {
               placeholder="Search products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && searchTerm.trim() === '') {
+                  onError404("Please enter a search term to find products!");
+                }
+              }}
             />
-            <button className="search-btn">🔍</button>
+            <button 
+              className="search-btn"
+              onClick={() => {
+                if (searchTerm.trim() === '') {
+                  onError404("Please enter a search term to find products!");
+                }
+              }}
+            >
+              🔍
+            </button>
           </div>
           
           <div className="header-actions">
@@ -229,6 +277,318 @@ const Store = ({ onLogin, onSignup }) => {
             <button className="btn-primary" onClick={onSignup}>Sign Up</button>
             <button className="cart-btn" onClick={() => document.getElementById('cart-sidebar').classList.add('open')}>
               🛒 <span className="cart-count">{cartCount}</span>
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("This is a test error message. The page you're looking for doesn't exist!")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px' }}
+              title="Test Error Popup"
+            >
+              Test Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Oops! This link is broken. Please use the navigation menu above.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Broken Link"
+            >
+              Broken Link
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Product not found! This item may have been removed or is temporarily unavailable.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Product Not Found"
+            >
+              Product Not Found
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Access denied! Please log in to view this page.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Access Denied"
+            >
+              Access Denied
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("This page is under maintenance. Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Maintenance"
+            >
+              Maintenance
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("This page is temporarily unavailable. Please try again in a few minutes.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Temporarily Unavailable"
+            >
+              Temporarily Unavailable
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Page not found! The page you're looking for doesn't exist.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Page Not Found"
+            >
+              Page Not Found
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Access forbidden! You don't have permission to view this page.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Forbidden"
+            >
+              Forbidden
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Too many requests! Please wait a moment before trying again.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Too Many Requests"
+            >
+              Too Many Requests
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Internal server error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Internal Server Error"
+            >
+              Server Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Bad gateway! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Bad Gateway"
+            >
+              Bad Gateway
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Service unavailable! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Service Unavailable"
+            >
+              Service Unavailable
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Gateway timeout! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Gateway Timeout"
+            >
+              Gateway Timeout
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Network error! Please check your connection and try again.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Network Error"
+            >
+              Network Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection timeout! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Timeout"
+            >
+              Connection Timeout
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("DNS error! Please check your internet connection.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test DNS Error"
+            >
+              DNS Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("SSL certificate error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test SSL Error"
+            >
+              SSL Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Certificate error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Certificate Error"
+            >
+              Certificate Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Proxy error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Proxy Error"
+            >
+              Proxy Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Firewall error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Firewall Error"
+            >
+              Firewall Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Rate limit exceeded! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Rate Limit Error"
+            >
+              Rate Limit Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Quota exceeded! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Quota Exceeded"
+            >
+              Quota Exceeded
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Bandwidth exceeded! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Bandwidth Exceeded"
+            >
+              Bandwidth Exceeded
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Storage exceeded! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Storage Exceeded"
+            >
+              Storage Exceeded
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Database error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Database Error"
+            >
+              Database Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Cache error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Cache Error"
+            >
+              Cache Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Memory error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Memory Error"
+            >
+              Memory Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("CPU error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test CPU Error"
+            >
+              CPU Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Disk error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Disk Error"
+            >
+              Disk Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("File error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test File Error"
+            >
+              File Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Permission error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Permission Error"
+            >
+              Permission Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Timeout error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Timeout Error"
+            >
+              Timeout Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection refused! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Refused"
+            >
+              Connection Refused
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection reset! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Reset"
+            >
+              Connection Reset
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection dropped! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Dropped"
+            >
+              Connection Dropped
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection lost! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Lost"
+            >
+              Connection Lost
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection failed! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Failed"
+            >
+              Connection Failed
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection error! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Error"
+            >
+              Connection Error
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => onError404("Connection timeout! Please try again later.")}
+              style={{ fontSize: '0.8rem', padding: '8px 12px', marginLeft: '5px' }}
+              title="Test Connection Timeout"
+            >
+              Connection Timeout
             </button>
           </div>
         </div>
@@ -273,19 +633,25 @@ const Store = ({ onLogin, onSignup }) => {
                 </div>
                 
                                  <div className="product-price">
-                   <span className="current-price">₹{product.price}</span>
+                   <span className="current-price">NPR {product.price}</span>
                    {product.originalPrice > product.price && (
-                     <span className="original-price">₹{product.originalPrice}</span>
+                     <span className="original-price">NPR {product.originalPrice}</span>
                    )}
                  </div>
                 
-                <button
-                  className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''}`}
-                  onClick={() => product.inStock && addToCart(product)}
-                  disabled={!product.inStock}
-                >
-                  {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-                </button>
+                                 <button
+                   className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''} ${isAddingToCart ? 'loading' : ''}`}
+                   onClick={() => {
+                     if (!product.inStock) {
+                       onError404("Sorry! This product is currently out of stock. Please check back later.");
+                     } else {
+                       addToCart(product);
+                     }
+                   }}
+                   disabled={isAddingToCart}
+                 >
+                   {product.inStock ? (isAddingToCart ? 'Adding...' : 'Add to Cart') : 'Out of Stock'}
+                 </button>
               </div>
             </div>
           ))}
@@ -323,9 +689,9 @@ const Store = ({ onLogin, onSignup }) => {
                   <div className="cart-item-image">
                     <img src={item.image} alt={item.name} className="cart-product-img" />
                   </div>
-                  <div className="cart-item-info">
-                    <h4>{item.name}</h4>
-                    <p className="cart-item-price">₹{item.price}</p>
+                                     <div className="cart-item-info">
+                     <h4>{item.name}</h4>
+                     <p className="cart-item-price">NPR {item.price}</p>
                     <div className="quantity-controls">
                       <button 
                         className="quantity-btn"
@@ -355,11 +721,21 @@ const Store = ({ onLogin, onSignup }) => {
                              <div className="cart-footer">
                  <div className="cart-total">
                    <span>Total:</span>
-                   <span className="total-amount">₹{cartTotal.toFixed(0)}</span>
+                   <span className="total-amount">NPR {cartTotal.toFixed(0)}</span>
                  </div>
-                <button className="btn-primary checkout-btn">
-                  Proceed to Checkout
-                </button>
+                                 <button 
+                   className={`btn-primary checkout-btn ${isCheckingOut ? 'loading' : ''}`}
+                   onClick={() => {
+                     if (cart.length === 0) {
+                       onError404("Your cart is empty! Please add some products before checkout.");
+                     } else {
+                       handleCheckout();
+                     }
+                   }}
+                   disabled={isCheckingOut}
+                 >
+                   {isCheckingOut ? 'Processing...' : 'Proceed to Checkout'}
+                 </button>
               </div>
             </>
           )}

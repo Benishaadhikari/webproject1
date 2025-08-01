@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Auth.css';
 
 const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
@@ -8,6 +8,15 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger entrance animation
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,14 +70,14 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
+      <div className={`auth-card ${isVisible ? 'animate-in' : ''}`}>
         <div className="auth-header">
-          <h2>Welcome Back</h2>
-          <p>Sign in to your beauty account</p>
+          <h2 className="animate-slide-down">Welcome Back</h2>
+          <p className="animate-slide-down" style={{ animationDelay: '0.1s' }}>Sign in to your beauty account</p>
         </div>
         
         <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
+          <div className="form-group animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -82,7 +91,7 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-          <div className="form-group">
+          <div className="form-group animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -96,7 +105,7 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          <div className="form-options">
+          <div className="form-options animate-slide-up" style={{ animationDelay: '0.4s' }}>
             <label className="checkbox-container">
               <input type="checkbox" />
               <span className="checkmark"></span>
@@ -107,18 +116,19 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
 
           <button 
             type="submit" 
-            className={`submit-btn ${isLoading ? 'loading' : ''}`}
+            className={`submit-btn ${isLoading ? 'loading' : ''} animate-slide-up`}
+            style={{ animationDelay: '0.5s' }}
             disabled={isLoading}
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <div className="auth-divider">
+        <div className="auth-divider animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <span>or</span>
         </div>
 
-        <div className="social-auth">
+        <div className="social-auth animate-slide-up" style={{ animationDelay: '0.7s' }}>
           <button className="social-btn google">
             <svg viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -130,7 +140,7 @@ const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
           </button>
         </div>
 
-        <div className="auth-footer">
+        <div className="auth-footer animate-slide-up" style={{ animationDelay: '0.8s' }}>
           <p>
             Don't have an account?{' '}
             <button onClick={onSwitchToSignup} className="switch-btn">
