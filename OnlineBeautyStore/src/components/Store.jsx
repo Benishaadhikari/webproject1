@@ -321,20 +321,31 @@ const Store = ({ onLogin, onSignup }) => {
               {cart.map(item => (
                 <div key={item.id} className="cart-item">
                   <div className="cart-item-image">
-                    <span className="product-emoji">{item.image}</span>
+                    <img src={item.image} alt={item.name} className="cart-product-img" />
                   </div>
-                                     <div className="cart-item-info">
-                     <h4>{item.name}</h4>
-                     <p>₹{item.price}</p>
+                  <div className="cart-item-info">
+                    <h4>{item.name}</h4>
+                    <p className="cart-item-price">₹{item.price}</p>
                     <div className="quantity-controls">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                      <button 
+                        className="quantity-btn"
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      >
+                        -
+                      </button>
+                      <span className="quantity-display">{item.quantity}</span>
+                      <button 
+                        className="quantity-btn"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                   <button 
                     className="remove-item"
                     onClick={() => removeFromCart(item.id)}
+                    title="Remove item"
                   >
                     ✕
                   </button>
