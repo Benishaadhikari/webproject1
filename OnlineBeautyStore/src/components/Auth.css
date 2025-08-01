@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #e6e6fa 0%, #d8bfd8 100%);
   padding: 40px 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -34,7 +34,7 @@
   left: 0;
   right: 0;
   height: 6px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  background: linear-gradient(90deg, #e6e6fa, #d8bfd8, #dda0dd, #e6e6fa);
   background-size: 400% 400%;
   animation: gradientShift 4s ease infinite;
 }
@@ -96,9 +96,9 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #d8bfd8;
   background: white;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 4px rgba(216, 191, 216, 0.1);
   transform: translateY(-2px);
 }
 
@@ -182,7 +182,7 @@
 }
 
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #667eea;
+  background-color: #d8bfd8;
 }
 
 .checkmark:after {
@@ -203,7 +203,7 @@
 }
 
 .forgot-password {
-  color: #667eea;
+  color: #d8bfd8;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
@@ -211,12 +211,12 @@
 }
 
 .forgot-password:hover {
-  color: #5a67d8;
+  color: #e6e6fa;
   text-decoration: underline;
 }
 
 .terms-link {
-  color: #667eea;
+  color: #d8bfd8;
   text-decoration: none;
   font-weight: 600;
 }
@@ -229,7 +229,7 @@
 .submit-btn {
   width: 100%;
   padding: 20px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d8bfd8 0%, #e6e6fa 100%);
   color: white;
   border: none;
   border-radius: 15px;
@@ -245,7 +245,7 @@
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 15px 30px rgba(216, 191, 216, 0.4);
 }
 
 .submit-btn:active:not(:disabled) {
@@ -362,7 +362,7 @@
 .switch-btn {
   background: none;
   border: none;
-  color: #667eea;
+  color: #d8bfd8;
   font-weight: 700;
   cursor: pointer;
   text-decoration: underline;
@@ -373,7 +373,7 @@
 }
 
 .switch-btn:hover {
-  color: #5a67d8;
+  color: #e6e6fa;
 }
 
 /* Responsive Design */
@@ -458,7 +458,7 @@
 .submit-btn:focus,
 .social-btn:focus,
 .switch-btn:focus {
-  outline: 3px solid #667eea;
+  outline: 3px solid #d8bfd8;
   outline-offset: 3px;
 }
 
@@ -495,7 +495,7 @@
   color: #e53e3e !important;
 }
 
-/* Keep links blue/purple for accessibility */
+/* Keep links lavender for accessibility */
 .forgot-password, .terms-link, .switch-btn {
-  color: #667eea !important;
+  color: #d8bfd8 !important;
 } 

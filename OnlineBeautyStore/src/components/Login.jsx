@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Auth.css';
 
-const Login = ({ onSwitchToSignup, onLogin }) => {
+const Login = ({ onSwitchToSignup, onSwitchToStore, onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -137,6 +137,9 @@ const Login = ({ onSwitchToSignup, onLogin }) => {
               Sign up
             </button>
           </p>
+          <button onClick={onSwitchToStore} className="switch-btn" style={{marginTop: '10px'}}>
+            Back to Store
+          </button>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
 
 /* Sidebar */
 .sidebar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d8bfd8 0%, #e6e6fa 100%);
   color: white;
   width: 280px;
   transition: all 0.3s ease;
@@ -169,7 +169,7 @@
 
 .stat-icon {
   font-size: 2.5rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #d8bfd8, #e6e6fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -369,7 +369,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d8bfd8 0%, #e6e6fa 100%);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -381,7 +381,7 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(216, 191, 216, 0.4);
 }
 
 /* Tables */
@@ -505,7 +505,7 @@
 
 .customer-avatar {
   font-size: 2rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #d8bfd8, #e6e6fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -554,7 +554,7 @@
 
 .order-filters select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #d8bfd8;
 }
 
 /* Responsive Design */

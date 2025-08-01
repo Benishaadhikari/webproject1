@@ -210,7 +210,7 @@ const Store = ({ onLogin, onSignup }) => {
       <header className="store-header">
         <div className="header-content">
           <div className="logo">
-            <h1>Beauty Store</h1>
+            <h1>BeautyStore</h1>
             <p>Your Beauty, Our Passion</p>
           </div>
           

@@ -1,5 +1,5 @@
 {
-  "name": "beauty-store-backend",
+  "name": "beautystore-backend",
   "version": "1.0.0",
   "description": "Backend API for Online Beauty Store",
   "main": "server.js",

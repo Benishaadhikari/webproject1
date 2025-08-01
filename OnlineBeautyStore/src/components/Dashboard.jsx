@@ -227,7 +227,7 @@ const Dashboard = ({ onLogout }) => {
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
-          <h2>Beauty Store</h2>
+                          <h2>BeautyStore</h2>
           <button 
             className="sidebar-toggle"
             onClick={() => setSidebarOpen(!sidebarOpen)}

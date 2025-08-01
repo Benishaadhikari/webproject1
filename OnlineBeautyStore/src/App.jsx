@@ -58,7 +58,7 @@ function App() {
     }
     switch (currentView) {
       case 'login':
-        return <Login onSwitchToSignup={switchToSignup} onLogin={handleLogin} />
+        return <Login onSwitchToSignup={switchToSignup} onSwitchToStore={switchToStore} onLogin={handleLogin} />
       case 'signup':
         return <Signup onSwitchToLogin={switchToLogin} onSwitchToStore={switchToStore} onSignup={handleSignup} />
       case 'dashboard':

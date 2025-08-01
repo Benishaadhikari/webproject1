@@ -1,6 +1,6 @@
-# Beauty Store Backend API
+# BeautyStore Backend API
 
-A comprehensive RESTful API for an online beauty store built with Node.js, Express, and MongoDB.
+A comprehensive RESTful API for BeautyStore, an online beauty store built with Node.js, Express, and MongoDB.
 
 ## Features
 
